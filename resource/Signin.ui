@@ -6,19 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>398</width>
-    <height>538</height>
+    <width>407</width>
+    <height>717</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Signin</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QToolButton#close_toolButton {
-	cursor: pointing-hand;
-	border-image: url(:/source/imgs/close.svg);
+   <string notr="true">QWidget#SigninClass {
+    border-radius: 12px;
 }
 
+QToolButton {
+	border: none;
+}
+
+QToolButton#close_toolButton {
+	border-image: url(:/imgs/close2.svg);
+}
+
+QToolButton#close_toolButton:hover {
+	background-color: rgb(231, 76, 60);
+}
 QLineEdit {
 	border:none;
 	border-radius: 10px;
@@ -129,8 +139,20 @@ QPushButton#register_pushButton {
             <height>120</height>
            </size>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>120</height>
+           </size>
+          </property>
           <property name="text">
-           <string>欢迎注册Talky</string>
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../TalkyClient.qrc">:/imgs/president-.svg</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -153,12 +175,69 @@ QPushButton#register_pushButton {
        </layout>
       </item>
       <item>
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+          <pointsize>20</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Register</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLineEdit" name="username_lineEdit">
         <property name="minimumSize">
          <size>
           <width>0</width>
           <height>45</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="placeholderText">
+         <string>Username / Email</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Nickname</string>
         </property>
        </widget>
       </item>
@@ -170,6 +249,30 @@ QPushButton#register_pushButton {
           <height>45</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="placeholderText">
+         <string>Display name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Password</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -179,6 +282,15 @@ QPushButton#register_pushButton {
           <width>0</width>
           <height>45</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="placeholderText">
+         <string>Enter password</string>
         </property>
        </widget>
       </item>
@@ -205,11 +317,12 @@ QPushButton#register_pushButton {
         </property>
         <property name="font">
          <font>
+          <family>Microsoft YaHei UI</family>
           <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>立即注册</string>
+         <string>Sign Up</string>
         </property>
        </widget>
       </item>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1186</width>
-    <height>775</height>
+    <width>1185</width>
+    <height>941</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,16 +23,15 @@ QMainWindow {
 
 QWidget#centralWidget {
     background: #F5F6F7;
+    color: #222;
+    font-family: &quot;Microsoft YaHei&quot;;
 }
 
 QWidget {
-    background: #F5F6F7;
     color: #222;
-    font-family: &quot;Microsoft YaHei&quot;;
-    font-size: 13px;
 }
 
-/* 让容器类不要被 QWidget 默认背景影响（更稳） */
+/* 容器默认透明，避免全局背景污染 */
 QFrame, QGroupBox {
     background: transparent;
 }
@@ -41,8 +40,8 @@ QFrame, QGroupBox {
    左侧 navPanel
    ====================== */
 QWidget#navPanel {
-    background: #F5F6F7;
-    border-right: 1px solid #E9EAEC;
+    background: #F7F8FA;
+    border-right: 1px solid #E6E8EB;
 }
 
 QToolButton {
@@ -64,20 +63,25 @@ QToolButton:pressed {
    中间 listPanel
    ====================== */
 QWidget#listPanel {
-    background: #F5F6F7;
-    border-right: 1px solid #E9EAEC;
+    background: #F7F8FA;
+    border-right: 1px solid #E6E8EB;
 }
 
-/* 搜索/输入框通用 */
-QLineEdit {
-    background: #EBEBEB;
-    border: 1px solid #E6E7EA;
+/* 搜索框 */
+QLineEdit{
+	background: #F5F6F7;
+    border: 1px solid #E3E5E8;
     border-radius: 10px;
     padding: 8px 10px;
     selection-background-color: #2A82FF;
 }
 
+QLineEdit#searchFriend_lineEdit{
+    background: #EBECF0;
+}
+
 QLineEdit:focus {
+    background: #FFFFFF;
     border: 1px solid rgba(42,130,255,0.55);
 }
 
@@ -86,7 +90,7 @@ QListWidget#chatList {
     background: transparent;
     border: none;
     outline: none;
-    padding: 6px;                 /* 列表整体内边距 */
+    padding: 6px;
 }
 
 QListWidget#chatList::item {
@@ -97,7 +101,21 @@ QListWidget#chatList::item {
 
 QListWidget#chatList::item:hover,
 QListWidget#chatList::item:selected {
-    background: transparent;   /* 选中背景由 ChatItem 自身控制 */
+    background: transparent;
+}
+
+/* 会话项 */
+QWidget#ChatItemClass {
+    background: transparent;
+    border-radius: 10px;
+}
+
+QWidget#ChatItemClass[hover=&quot;true&quot;] {
+    background: rgba(34,117,230,0.10);
+}
+
+QWidget#ChatItemClass[selected=&quot;true&quot;] {
+    background: rgba(34,117,230,0.16);
 }
 
 /* ======================
@@ -107,17 +125,31 @@ QWidget#chatPanel {
     background: #F5F6F7;
 }
 
-/* 顶部 headerBar */
 QWidget#headerBar {
     background: #F5F6F7;
-    border-bottom: 1px solid #E9EAEC;
+    border: none;
 }
 
-/* 消息区：QListWidget + viewport 都强制白底，避免灰块 */
+/* 如果你顶部有名字标签，建议给 objectName */
+QLabel#titleLabel {
+    background: transparent;
+    color: #111111;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QLabel#subTitleLabel {
+    background: transparent;
+    color: #8A8F98;
+    font-size: 12px;
+}
+
+/* 消息区 */
 QListWidget#messageList {
     background: #F5F6F7;
     border: none;
     outline: none;
+    padding: 12px 14px 12px 14px;
 }
 
 QListWidget#messageList::item {
@@ -129,43 +161,54 @@ QListWidget#messageList:focus {
     outline: none;
 }
 
-
-QWidget#ChatItemClass {
-    background: transparent;
-    border-radius: 10px;
-}
-
-QWidget#ChatItemClass[hover=&quot;true&quot;] {
-    background: rgba(34,117,230,0.2);
-}
-
-QWidget#ChatItemClass[selected=&quot;true&quot;] {
-    background: rgba(34,117,230,0.2);
-}
-
-/* 关键：viewport 才是真正绘制背景的地方 */
 QListWidget#messageList QAbstractScrollArea::viewport {
     background: #F5F6F7;
 }
 
-/* 底部输入区 */
+/* 底部输入区：改成白底独立区 */
 QWidget#composerBar {
-    background: #F5F6F7;
-    border-top: 1px solid #E9EAEC;
+    background: #FFFFFF;
+    border-top: 1px solid #E6E8EB;
 }
 
-/* 在白底区域，输入框保持白底（避免被 QWidget 全局灰覆盖） */
-QWidget#chatPanel QLineEdit {
-    background: #F5F6F7;
+QTextEdit#messageEdit {
+    border: 1px solid #D9DEE5;
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: #222222;
+    selection-background-color: #2A82FF;
 }
 
-/* 发送按钮：QQ 蓝 */
+QTextEdit#messageEdit:focus {
+    background: #FFFFFF;
+    border: 1px solid rgba(42,130,255,0.55);
+}
+
+QPlainTextEdit#messageEdit {
+    background: #F7F8FA;
+    border: 1px solid #D9DEE5;
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: #222222;
+    selection-background-color: #2A82FF;
+}
+
+QPlainTextEdit#messageEdit:focus {
+    background: #FFFFFF;
+    border: 1px solid rgba(42,130,255,0.55);
+}
+
+/* 发送按钮 */
 QPushButton#sendButton {
     background: #2A82FF;
     color: white;
     border: none;
     border-radius: 10px;
-    padding: 8px 14px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 72px;
+    min-height: 36px;
 }
 
 QPushButton#sendButton:hover {
@@ -177,12 +220,12 @@ QPushButton#sendButton:pressed {
 }
 
 /* ======================
-   滚动条（更像 QQ）
+   滚动条
    ====================== */
 QScrollBar:vertical {
     background: transparent;
     width: 10px;
-    margin: 2px 2px 2px 2px;
+    margin: 2px;
 }
 
 QScrollBar::handle:vertical {
@@ -204,11 +247,10 @@ QScrollBar::sub-line:vertical {
 QScrollBar::add-page:vertical,
 QScrollBar::sub-page:vertical {
     background: transparent;
-}
-</string>
+}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_6">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -225,105 +267,139 @@ QScrollBar::sub-page:vertical {
      <number>0</number>
     </property>
     <item>
-     <widget class="QWidget" name="navPanel" native="true">
+     <widget class="QWidget" name="titleBar" native="true">
       <property name="minimumSize">
        <size>
-        <width>60</width>
-        <height>0</height>
+        <width>0</width>
+        <height>42</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>60</width>
-        <height>16777215</height>
+        <width>16777215</width>
+        <height>42</height>
        </size>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="spacing">
-        <number>8</number>
-       </property>
-       <property name="leftMargin">
-        <number>8</number>
-       </property>
-       <property name="topMargin">
-        <number>8</number>
-       </property>
-       <property name="rightMargin">
-        <number>8</number>
-       </property>
-       <property name="bottomMargin">
-        <number>8</number>
-       </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
        <item>
-        <widget class="QToolButton" name="friendsList_toolButton">
+        <widget class="QLabel" name="label">
          <property name="minimumSize">
           <size>
-           <width>44</width>
-           <height>44</height>
+           <width>24</width>
+           <height>24</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>44</width>
-           <height>44</height>
+           <width>24</width>
+           <height>24</height>
           </size>
          </property>
          <property name="text">
           <string/>
          </property>
+         <property name="pixmap">
+          <pixmap resource="../TalkyClient.qrc">:/imgs/pig.svg</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="chatSession_toolButton">
-         <property name="minimumSize">
-          <size>
-           <width>44</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>44</width>
-           <height>44</height>
-          </size>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei UI</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
          <property name="text">
-          <string/>
+          <string>Talky</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="horizontalSpacer_4">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>40</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton">
+        <widget class="QToolButton" name="min_toolButton">
          <property name="minimumSize">
           <size>
-           <width>44</width>
-           <height>44</height>
+           <width>32</width>
+           <height>32</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>44</width>
-           <height>44</height>
+           <width>32</width>
+           <height>32</height>
           </size>
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../TalkyClient.qrc">
+           <normaloff>:/imgs/minimize.svg</normaloff>:/imgs/minimize.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="max_toolButton">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../TalkyClient.qrc">
+           <normaloff>:/imgs/maximize.svg</normaloff>:/imgs/maximize.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="closeButton">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../TalkyClient.qrc">
+           <normaloff>:/imgs/close2.svg</normaloff>:/imgs/close2.svg</iconset>
          </property>
         </widget>
        </item>
@@ -331,115 +407,137 @@ QScrollBar::sub-page:vertical {
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="listPanel" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>300</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>10</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>12</number>
-       </property>
+     <widget class="QWidget" name="bodyWidget" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QWidget" name="widget_2" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+        <widget class="QWidget" name="navPanel" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <property name="spacing">
+           <number>8</number>
+          </property>
           <property name="leftMargin">
-           <number>11</number>
+           <number>8</number>
           </property>
           <property name="topMargin">
-           <number>11</number>
+           <number>8</number>
           </property>
           <property name="rightMargin">
-           <number>11</number>
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
           </property>
           <item>
-           <widget class="QWidget" name="widget" native="true">
-            <property name="maximumSize">
+           <widget class="QToolButton" name="friendsList_toolButton">
+            <property name="minimumSize">
              <size>
-              <width>300</width>
-              <height>16777215</height>
+              <width>44</width>
+              <height>44</height>
              </size>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <property name="spacing">
-              <number>7</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="searchFriend_lineEdit">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>44</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="addFriend_toolButton">
-               <property name="minimumSize">
-                <size>
-                 <width>44</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>44</width>
-                 <height>44</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <property name="maximumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../TalkyClient.qrc">
+              <normaloff>:/imgs/chat2.svg</normaloff>:/imgs/chat2.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="chatList">
+           <widget class="QToolButton" name="chatSession_toolButton">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
-              <width>300</width>
-              <height>16777215</height>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../TalkyClient.qrc">
+              <normaloff>:/imgs/contact.svg</normaloff>:/imgs/contact.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QToolButton" name="logout_toolButton">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../TalkyClient.qrc">
+              <normaloff>:/imgs/shutdown.svg</normaloff>:/imgs/shutdown.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
            </widget>
@@ -447,122 +545,283 @@ QScrollBar::sub-page:vertical {
          </layout>
         </widget>
        </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="chatPanel" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>600</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::NoContextMenu</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
-        <widget class="QLineEdit" name="peerNameEdit">
+        <widget class="QWidget" name="listPanel" native="true">
          <property name="minimumSize">
           <size>
-           <width>0</width>
-           <height>55</height>
+           <width>300</width>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
-           <height>55</height>
+           <width>300</width>
+           <height>16777215</height>
           </size>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="messageList"/>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_3" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <layout class="QVBoxLayout" name="verticalLayout_12">
           <property name="spacing">
            <number>10</number>
           </property>
           <property name="leftMargin">
-           <number>16</number>
+           <number>0</number>
           </property>
           <property name="topMargin">
-           <number>12</number>
+           <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>16</number>
+           <number>0</number>
           </property>
           <property name="bottomMargin">
            <number>12</number>
           </property>
           <item>
-           <widget class="QLineEdit" name="messageEdit">
+           <widget class="QWidget" name="widget_9" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <property name="leftMargin">
+              <number>11</number>
+             </property>
+             <property name="topMargin">
+              <number>11</number>
+             </property>
+             <property name="rightMargin">
+              <number>11</number>
+             </property>
+             <item>
+              <widget class="QWidget" name="widget_10" native="true">
+               <property name="maximumSize">
+                <size>
+                 <width>300</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <property name="spacing">
+                 <number>7</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLineEdit" name="searchFriend_lineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>44</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>44</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="addFriend_toolButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>44</width>
+                    <height>44</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>44</width>
+                    <height>44</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../TalkyClient.qrc">
+                    <normaloff>:/imgs/add2.svg</normaloff>:/imgs/add2.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QListWidget" name="chatList">
+               <property name="maximumSize">
+                <size>
+                 <width>300</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="chatPanel" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>600</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="peerNameEdit">
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>200</height>
+              <height>55</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777209</width>
-              <height>200</height>
+              <width>16777215</width>
+              <height>55</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei UI</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Mini</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_4" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <widget class="QListWidget" name="messageList"/>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_11" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>16</number>
+             </property>
+             <property name="topMargin">
+              <number>12</number>
+             </property>
+             <property name="rightMargin">
+              <number>16</number>
+             </property>
+             <property name="bottomMargin">
+              <number>12</number>
+             </property>
              <item>
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="sendButton">
+              <widget class="QLineEdit" name="messageEdit">
                <property name="minimumSize">
                 <size>
-                 <width>100</width>
-                 <height>40</height>
+                 <width>0</width>
+                 <height>200</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>100</width>
-                 <height>40</height>
+                 <width>16777209</width>
+                 <height>200</height>
                 </size>
                </property>
-               <property name="text">
-                <string>PushButton</string>
+               <property name="font">
+                <font>
+                 <family>Microsoft JhengHei UI</family>
+                 <pointsize>10</pointsize>
+                </font>
                </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_12" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="sendButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>104</width>
+                    <height>52</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Microsoft YaHei</family>
+                    <pointsize>-1</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Send</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -576,15 +835,6 @@ QScrollBar::sub-page:vertical {
     </item>
    </layout>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

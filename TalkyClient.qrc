@@ -7,5 +7,16 @@
         <file>imgs/contact.svg</file>
         <file>imgs/contact_push.svg</file>
         <file>imgs/hk_quit.svg</file>
+        <file>imgs/batman-.svg</file>
+        <file>imgs/president-.svg</file>
+        <file>imgs/close2.svg</file>
+        <file>imgs/app.ico</file>
+        <file>imgs/chat2.svg</file>
+        <file>imgs/shutdown.svg</file>
+        <file>imgs/add2.svg</file>
+        <file>imgs/member.svg</file>
+        <file>imgs/pig.svg</file>
+        <file>imgs/maximize.svg</file>
+        <file>imgs/minimize.svg</file>
     </qresource>
 </RCC>

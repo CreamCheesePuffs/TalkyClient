@@ -1,6 +1,9 @@
 ﻿// NetWorker.cpp
 #include "NetWorker.h"
+#include "utils/IULog.h"
+#include "utils/ProtocolStream.h"
 #include "utils/Zlib.h"
+#include "jsoncpp-1.9.0/json.h"
 
 
 #include <chrono>
@@ -15,6 +18,7 @@ constexpr int kConnectTimeoutMs = 3000;
 constexpr int kLoopSleepMs = 10;
 constexpr int kHeartbeatSec = 15;
 constexpr size_t kRecvBufSize = 16 * 1024;
+constexpr int kRetryDelayMs = 500;
 
 }
 
@@ -27,33 +31,195 @@ NetWorker::~NetWorker() {
     Stop();
 }
 
+std::string EscapeJson(const std::string& s)
+{
+    std::string out;
+    out.reserve(s.size());
+
+    for (char ch : s)
+    {
+        switch (ch)
+        {
+        case '\"': out += "\\\""; break;
+        case '\\': out += "\\\\"; break;
+        case '\b': out += "\\b";  break;
+        case '\f': out += "\\f";  break;
+        case '\n': out += "\\n";  break;
+        case '\r': out += "\\r";  break;
+        case '\t': out += "\\t";  break;
+        default:   out += ch;     break;
+        }
+    }
+    return out;
+}
+
+std::string MakeRegisterJson(const std::string& username,
+    const std::string& nickname,
+    const std::string& password)
+{
+    return std::string("{\"username\":\"") + EscapeJson(username) +
+        "\",\"nickname\":\"" + EscapeJson(nickname) +
+        "\",\"password\":\"" + EscapeJson(password) + "\"}";
+}
+
+std::string MakeLoginJson(const std::string& username,
+    const std::string& password,
+    int32_t status)
+{
+    return std::string("{\"username\":\"") + EscapeJson(username) +
+        "\",\"password\":\"" + EscapeJson(password) +
+        "\",\"clienttype\":1,\"status\":" + std::to_string(status) + "}";
+}
+
+std::string MakeSearchFriendJson(const std::string& username)
+{
+    return std::string("{\"type\":1,\"username\":\"") + EscapeJson(username) + "\"}";
+}
+
+std::string MakeOperateFriendJson(int32_t targetUserId, int32_t operationType)
+{
+    return std::string("{\"userid\":") + std::to_string(targetUserId) +
+        ",\"type\":" + std::to_string(operationType) + "}";
+}
+
 void NetWorker::Register(const std::string& username, const std::string& nickname, const std::string& password)
 {
-    (void)username;
-    (void)nickname;
-    (void)password;
+    std::string body = MakeRegisterJson(username, nickname, password);
+
+    std::string raw;
+    BinaryStreamWriter writer(&raw);
+    writer.WriteInt32(static_cast<int32_t>(msg_type_register));
+    writer.WriteInt32(0);
+    writer.WriteString(body);
+    writer.Flush();
+
+    // 3) 可选压缩 + 传输头
+    std::string compressed;
+    if (!Compress(raw, compressed))
+    {
+        // log
+        return;
+    }
+
+    MsgHeader header{};
+    header.compressflag = 1;
+    header.originsize = raw.size();
+    header.compresssize = compressed.size();
+
+    std::lock_guard<std::mutex> lock(_sendBufferMutex);
+    _sendBuffer.append((char*)(&header), sizeof(header));
+    _sendBuffer.append(compressed);
 }
 
 void NetWorker::Login(const std::string& username, const std::string& password, int32_t status)
 {
-    (void)username;
-    (void)password;
-    (void)status;
+    std::string body = MakeLoginJson(username, password, status);
+
+    // 2) 协议码流: [packlen/checksum头由 BinaryStreamWriter 管理] + cmd + seq + body
+    std::string raw;
+    BinaryStreamWriter writer(&raw);
+    writer.WriteInt32(static_cast<int32_t>(msg_type_login));
+    writer.WriteInt32(0);
+    writer.WriteString(body);
+    writer.Flush();
+
+    // 3) 可选压缩 + 传输头
+    std::string compressed;
+    if (!Compress(raw, compressed))
+    {
+        // log
+        return;
+    }
+
+    MsgHeader header{};
+    header.compressflag = 1;
+    header.originsize = raw.size();
+    header.compresssize = compressed.size();
+
+    std::lock_guard<std::mutex> lock(_sendBufferMutex);
+    _sendBuffer.append((char*)(&header), sizeof(header));
+    _sendBuffer.append(compressed);
 }
 
-void NetWorker::FindFriend(const std::string& username)
+void NetWorker::SearchFriend(const std::string& username)
 {
-    (void)username;
+    std::string body = MakeSearchFriendJson(username);
+
+    std::string raw;
+    BinaryStreamWriter writer(&raw);
+    writer.WriteInt32(static_cast<int32_t>(msg_type_search_friend));
+    writer.WriteInt32(0);
+    writer.WriteString(body);
+    writer.Flush();
+
+    std::string compressed;
+    if (!Compress(raw, compressed))
+    {
+        return;
+    }
+
+    MsgHeader header{};
+    header.compressflag = 1;
+    header.originsize = raw.size();
+    header.compresssize = compressed.size();
+
+    std::lock_guard<std::mutex> lock(_sendBufferMutex);
+    _sendBuffer.append((char*)(&header), sizeof(header));
+    _sendBuffer.append(compressed);
 }
 
 void NetWorker::AddFriend(int32_t targetUserId)
 {
-    (void)targetUserId;
+    std::string body = MakeOperateFriendJson(targetUserId, 1);
+
+    std::string raw;
+    BinaryStreamWriter writer(&raw);
+    writer.WriteInt32(static_cast<int32_t>(msg_type_operate_friend));
+    writer.WriteInt32(0);
+    writer.WriteString(body);
+    writer.Flush();
+
+    std::string compressed;
+    if (!Compress(raw, compressed))
+    {
+        return;
+    }
+
+    MsgHeader header{};
+    header.compressflag = 1;
+    header.originsize = raw.size();
+    header.compresssize = compressed.size();
+
+    std::lock_guard<std::mutex> lock(_sendBufferMutex);
+    _sendBuffer.append((char*)(&header), sizeof(header));
+    _sendBuffer.append(compressed);
 }
 
 void NetWorker::DelFriend(int32_t targetUserId)
 {
-    (void)targetUserId;
+    std::string body = MakeOperateFriendJson(targetUserId, 4);
+
+    std::string raw;
+    BinaryStreamWriter writer(&raw);
+    writer.WriteInt32(static_cast<int32_t>(msg_type_operate_friend));
+    writer.WriteInt32(0);
+    writer.WriteString(body);
+    writer.Flush();
+
+    std::string compressed;
+    if (!Compress(raw, compressed))
+    {
+        return;
+    }
+
+    MsgHeader header{};
+    header.compressflag = 1;
+    header.originsize = raw.size();
+    header.compresssize = compressed.size();
+
+    std::lock_guard<std::mutex> lock(_sendBufferMutex);
+    _sendBuffer.append((char*)(&header), sizeof(header));
+    _sendBuffer.append(compressed);
 }
 
 void NetWorker::SendText(int32_t toUserId, const std::string& text)
@@ -80,6 +246,15 @@ void NetWorker::Start()
     {
         return;
     }
+    if (!_wsaInited && !InitWinsock())
+    {
+        std::unique_lock<std::mutex> lock(_callbacksMutex);
+        if (_callbacks.onNetworkError)
+        {
+            _callbacks.onNetworkError("WSAStartup failed");
+        }
+        return;
+    }
     _running = true;
     _thread  = std::thread(&NetWorker::loop, this);
 }
@@ -90,6 +265,7 @@ void NetWorker::Stop()
     {
         return;
     }
+    _running = false;
     //_queueCond.notify_all();
     if (_thread.joinable()) 
     {
@@ -101,17 +277,27 @@ void NetWorker::Stop()
 
 bool NetWorker::InitWinsock() 
 {
+    if (_wsaInited)
+    {
+        return true;
+    }
     WSADATA wsaData{};
     if (::WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) 
     {
         return false;
     }
+    _wsaInited = true;
     return true;
 }
 
 void NetWorker::CleanupWinsock() 
 {
+    if (!_wsaInited)
+    {
+        return;
+    }
     ::WSACleanup();
+    _wsaInited = false;
 }
 
 bool NetWorker::ConnectSocket(int timeoutMs) 
@@ -220,7 +406,7 @@ void NetWorker::loop()
     {
         if (!ensureConnected()) 
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 等待500毫秒
+            std::this_thread::sleep_for(std::chrono::milliseconds(kRetryDelayMs));
             continue;
         }
 
@@ -238,7 +424,11 @@ void NetWorker::loop()
 
         fd_set writeSet;
         FD_ZERO(&writeSet);
-        bool needWrite = _sendBuffer.empty() ? false : true;
+        bool needWrite = false;
+        {
+            std::lock_guard<std::mutex> lock(_sendBufferMutex);
+            needWrite = !_sendBuffer.empty();
+        }
         if (needWrite) 
         {
             FD_SET(_socket, &writeSet);
@@ -302,10 +492,18 @@ bool NetWorker::ensureConnected() {
 void NetWorker::procSend() 
 {
     int ret = 0;
-    int sentBytes = 0;
     while (true) 
     {
-        ret = ::send(_socket, _sendBuffer.c_str(), _sendBuffer.size(), 0);
+        std::string pending;
+        {
+            std::lock_guard<std::mutex> lock(_sendBufferMutex);
+            if (_sendBuffer.empty())
+            {
+                return;
+            }
+            pending = _sendBuffer;
+        }
+        ret = ::send(_socket, pending.data(), static_cast<int>(pending.size()), 0);
 
         if (ret == SOCKET_ERROR)
         {
@@ -327,10 +525,20 @@ void NetWorker::procSend()
             break;
         }
 
-        _sendBuffer.erase(0, ret);
-        if (_sendBuffer.empty())
         {
-            break;
+            std::lock_guard<std::mutex> lock(_sendBufferMutex);
+            if (ret >= static_cast<int>(_sendBuffer.size()))
+            {
+                _sendBuffer.clear();
+            }
+            else
+            {
+                _sendBuffer.erase(0, ret);
+            }
+            if (_sendBuffer.empty())
+            {
+                break;
+            }
         }
     }
 }
@@ -426,7 +634,7 @@ void NetWorker::procPacket()
             compressedMsg.assign(_recvBuffer.data(), header.compresssize);
             _recvBuffer.erase(0, header.compresssize);
             std::string uncompressedMsg;
-            if (!Decompress(compressedMsg, uncompressedMsg, header.compresssize))
+            if (!Decompress(compressedMsg, uncompressedMsg, header.originsize))
             {
                 // log
                 break;

@@ -1,5 +1,6 @@
 ﻿#include "MainWindow.h"
 #include "ChatItem.h"
+#include "DragWidgetFilter.h"
 #include "MessageBubble.h"
 #include <QDebug>
 
@@ -47,8 +48,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui.setupUi(this);
 
+    setWindowFlag(Qt::FramelessWindowHint);
+    this->installEventFilter(new DragWidgetFilter(this));
+
     // 顶部昵称显示：只读
     ui.peerNameEdit->setReadOnly(true);
+    ui.peerNameEdit->setFocusPolicy(Qt::NoFocus);    // 不可获得焦点
+    ui.peerNameEdit->setCursor(Qt::ArrowCursor);     // 鼠标不要变输入态
 
     ui.chatList->setMouseTracking(true);              // 必须
     ui.chatList->viewport()->setMouseTracking(true);  // 必须
@@ -63,9 +69,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui.messageList->setFrameShape(QFrame::NoFrame);
     ui.messageList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    connect(ui.closeButton, &QToolButton::clicked,
+        this, &MainWindow::onCloseButtonClicked);
+
     // 点击左侧会话列表
     connect(ui.chatList, &QListWidget::itemClicked,
         this, &MainWindow::onChatSelected);
+
+    // 点击添加好友
+    connect(ui.addFriend_toolButton, &QToolButton::clicked,
+        this, &MainWindow::onAddFriendRequest);
 
     // 发送按钮
     connect(ui.sendButton, &QPushButton::clicked,
@@ -108,9 +121,14 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow()
-{}
+{
 
+}
 
+void MainWindow::onCloseButtonClicked()
+{
+    this->close();
+}
 
 // onChatSelected：点会话 → 顶部显示昵称 + 清空消息
 void MainWindow::onChatSelected(QListWidgetItem* item)
@@ -213,3 +231,24 @@ void MainWindow::addChatItem(const ChatSummary& s)
     qDebug() << "ChatItem size:" << chatItem->size() << "chatList sizeHint:" << chatList->sizeHint();
 
 }
+
+void MainWindow::setCurrentUser(int userId, const QString& nickname)
+{
+    
+}
+
+void MainWindow::refreshFriendList()
+{
+
+}
+
+void MainWindow::appendMessage(int fromUserId, int toUserId, const QString& text, qint64 timestamp)
+{
+    
+}
+
+void MainWindow::onAddFriendRequest()
+{
+    emit addFriendRequested();
+}
+

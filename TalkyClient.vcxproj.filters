@@ -136,6 +136,12 @@
     <ClCompile Include="tasks\main.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utils\ProtocolStream.h.cc">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\SearchFriend.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ui\ChatItem.h">
@@ -156,6 +162,9 @@
     <QtMoc Include="tasks\TalkyClient.h">
       <Filter>tasks</Filter>
     </QtMoc>
+    <QtMoc Include="ui\SearchFriend.h">
+      <Filter>ui</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="resource\ChatItem.ui">
@@ -168,6 +177,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="resource\Signin.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="resource\SearchFriend.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -262,6 +274,12 @@
     <ClInclude Include="ui\DragWidgetFilter.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="utils\ProtocolStream.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="tasks\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="jsoncpp-1.9.0\json_valueiterator.inl">
@@ -272,5 +290,15 @@
     <Text Include="zlib1.2.11\文件概览.txt">
       <Filter>zlib1.2.11</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TalkyClient.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="imgs\app.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

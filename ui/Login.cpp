@@ -1,6 +1,7 @@
 ﻿#include "Login.h"
 #include "DragWidgetFilter.h"
 #include "MainWindow.h"
+#include "SearchFriend.h"
 #include "Signin.h"
 #include <QMessageBox>
 
@@ -20,7 +21,7 @@ Login::Login(QWidget *parent)
 
     connect(ui.register_pushButton, &QPushButton::clicked,
         this, &Login::on_register_pushButton_clicked);
-
+     
     connect(ui.login_pushButton, &QPushButton::clicked,
         this, &Login::on_login_pushButton_clicked);
 }

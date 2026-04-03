@@ -3,6 +3,7 @@
 #include "ui/Login.h"
 #include "ui/Signin.h"
 #include "ui/MainWindow.h"
+#include "ui/SearchFriend.h"
 #include <QObject>
 #include <QMetaObject>
 #include <QString>
@@ -31,13 +32,20 @@ signals:
     void messageReceived(int fromUserId, int toUserId, QString text, qint64 ts);
 
 private:
+    void setupWorkerCallbacks();
+    void setupSignalHandlers();
+
     void showLogin();
     void showSignin();
     void showMainWindow();
+    void showSearchWindow();
+
+    void onLoginRequested(const QString& username, const QString& password, int status);
 
 private:
     NetWorker _worker;
     std::unique_ptr<Login> _login;
     std::unique_ptr<Signin> _signin;
     std::unique_ptr<MainWindow> _mainWindow;
+    std::unique_ptr<SearchFriend> _searchFriend;
 };

@@ -107,9 +107,11 @@
     <ClCompile Include="ui\Login.cpp" />
     <ClCompile Include="ui\MainWindow.cpp" />
     <ClCompile Include="ui\MessageBubble.cpp" />
+    <ClCompile Include="ui\SearchFriend.cpp" />
     <ClCompile Include="ui\Signin.cpp" />
     <ClCompile Include="utils\EncodeUtil.cc" />
     <ClCompile Include="utils\IULog.cc" />
+    <ClCompile Include="utils\ProtocolStream.h.cc" />
     <ClCompile Include="utils\stdafx.cc" />
     <ClCompile Include="utils\Zlib.cc" />
     <ClCompile Include="zlib1.2.11\adler32.c" />
@@ -149,6 +151,7 @@
     <QtUic Include="resource\ChatItem.ui" />
     <QtUic Include="resource\Login.ui" />
     <QtUic Include="resource\MainWindow.ui" />
+    <QtUic Include="resource\SearchFriend.ui" />
     <QtUic Include="resource\Signin.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -167,9 +170,12 @@
     <ClInclude Include="tasks\Msg.h" />
     <ClInclude Include="tasks\NetWorker.h" />
     <QtMoc Include="tasks\TalkyClient.h" />
+    <ClInclude Include="tasks\resource.h" />
     <ClInclude Include="ui\DragWidgetFilter.h" />
+    <QtMoc Include="ui\SearchFriend.h" />
     <ClInclude Include="utils\EncodeUtil.h" />
     <ClInclude Include="utils\IULog.h" />
+    <ClInclude Include="utils\ProtocolStream.h" />
     <ClInclude Include="utils\stdafx.h" />
     <ClInclude Include="utils\Zlib.h" />
     <ClInclude Include="zlib1.2.11\crc32.h" />
@@ -189,6 +195,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="zlib1.2.11\文件概览.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TalkyClient.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="imgs\app.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
