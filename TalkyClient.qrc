@@ -18,5 +18,7 @@
         <file>imgs/pig.svg</file>
         <file>imgs/maximize.svg</file>
         <file>imgs/minimize.svg</file>
+        <file>imgs/bell.svg</file>
+        <file>imgs/delete.svg</file>
     </qresource>
 </RCC>

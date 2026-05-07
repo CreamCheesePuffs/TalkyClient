@@ -295,6 +295,19 @@ QPushButton#register_pushButton {
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="resultLabel">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>

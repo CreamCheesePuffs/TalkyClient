@@ -63,6 +63,10 @@ QPushButton#login_pushButton {
 	background-color: rgb(158, 218, 255);
 }
 
+QLabel#errorLabel {
+    background: transparent;
+    color: #E05A5A;   /* 默认红色 */
+}
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -281,6 +285,19 @@ QPushButton#login_pushButton {
         </property>
         <property name="placeholderText">
          <string>Enter password</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="errorLabel">
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei UI</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>

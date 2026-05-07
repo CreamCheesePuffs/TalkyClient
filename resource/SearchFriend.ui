@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
-    <height>764</height>
+    <width>420</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -132,6 +132,21 @@ QListWidget#friendList QAbstractScrollArea::viewport {
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>16</number>
+   </property>
+   <property name="topMargin">
+    <number>16</number>
+   </property>
+   <property name="rightMargin">
+    <number>16</number>
+   </property>
+   <property name="bottomMargin">
+    <number>16</number>
+   </property>
    <item>
     <widget class="QWidget" name="titleBar" native="true">
      <property name="minimumSize">
@@ -216,7 +231,6 @@ QListWidget#friendList QAbstractScrollArea::viewport {
         </property>
         <property name="font">
          <font>
-          <pointsize>-1</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -312,7 +326,11 @@ QListWidget#friendList QAbstractScrollArea::viewport {
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="friendList"/>
+    <widget class="QListWidget" name="friendList">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

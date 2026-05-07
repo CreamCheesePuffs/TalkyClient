@@ -24,6 +24,9 @@ Login::Login(QWidget *parent)
      
     connect(ui.login_pushButton, &QPushButton::clicked,
         this, &Login::on_login_pushButton_clicked);
+    
+    connect(ui.password_lineEdit, &QLineEdit::returnPressed,
+        this, &Login::on_login_pushButton_clicked);
 }
 
 Login::~Login()
@@ -59,4 +62,11 @@ void Login::on_login_pushButton_clicked()
         return;
     }
     emit loginRequested(username, password, 1);
+}
+
+void Login::showErrorMessage(const QString& msg)
+{
+    //ui.errorLabel->setStyleSheet("color: #E05A5A;");  // 红色
+    ui.errorLabel->setText(msg);
+    ui.errorLabel->show();
 }

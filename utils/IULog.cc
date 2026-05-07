@@ -35,7 +35,7 @@ bool CIULog::Init(bool bToFile, bool bTruncateLongLog, PCTSTR pszLogFileName)
             break;
         }
     }
-
+    
     TCHAR szLogDirectory[MAX_PATH] = { 0 };
     _stprintf_s(szLogDirectory, _T("%s\\Logs\\"), szHomePath);
     
@@ -57,7 +57,7 @@ bool CIULog::Init(bool bToFile, bool bTruncateLongLog, PCTSTR pszLogFileName)
 
         lpPos = _tcschr(cPath, _T('/'));
         while (lpPos != NULL)
-        {
+        { 
             if (lpPos == cPath)
             {
                 lpPos++;

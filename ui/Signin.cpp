@@ -50,3 +50,16 @@ void Signin::on_register_pushButton_clicked()
     // 当前注册页没有昵称输入框，这里先用用户名作为 nickname。
     emit registerSubmitted(username, nickname, password);
 }
+
+void Signin::showResultMessage(const QString& msg, bool success)
+{
+    if (success) {
+        ui.resultLabel->setStyleSheet("color: #4CAF50;");  // 绿色
+    }
+    else {
+        ui.resultLabel->setStyleSheet("color: #E05A5A;");  // 红色
+    }
+
+    ui.resultLabel->setText(msg);
+    ui.resultLabel->show();
+}

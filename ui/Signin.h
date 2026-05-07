@@ -11,7 +11,9 @@ public:
     Signin(QWidget *parent = nullptr);
     ~Signin();
 
+
     void setSubmitting(bool submitting);
+    void showResultMessage(const QString& msg, bool success);
 
 signals:
     void closeRequested();

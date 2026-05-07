@@ -103,10 +103,13 @@
     <ClCompile Include="tasks\main.cc" />
     <ClCompile Include="tasks\NetWorker.cc" />
     <ClCompile Include="tasks\TalkyClient.cc" />
+    <ClCompile Include="ui\AddFriendItem.cpp" />
     <ClCompile Include="ui\ChatItem.cpp" />
+    <ClCompile Include="ui\FriendItem.cpp" />
     <ClCompile Include="ui\Login.cpp" />
     <ClCompile Include="ui\MainWindow.cpp" />
     <ClCompile Include="ui\MessageBubble.cpp" />
+    <ClCompile Include="ui\NotifyItem.cpp" />
     <ClCompile Include="ui\SearchFriend.cpp" />
     <ClCompile Include="ui\Signin.cpp" />
     <ClCompile Include="utils\EncodeUtil.cc" />
@@ -148,9 +151,12 @@
     <QtMoc Include="ui\Signin.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="resource\AddFriendItem.ui" />
     <QtUic Include="resource\ChatItem.ui" />
+    <QtUic Include="resource\FriendItem.ui" />
     <QtUic Include="resource\Login.ui" />
     <QtUic Include="resource\MainWindow.ui" />
+    <QtUic Include="resource\NotifyItem.ui" />
     <QtUic Include="resource\SearchFriend.ui" />
     <QtUic Include="resource\Signin.ui" />
   </ItemGroup>
@@ -171,8 +177,11 @@
     <ClInclude Include="tasks\NetWorker.h" />
     <QtMoc Include="tasks\TalkyClient.h" />
     <ClInclude Include="tasks\resource.h" />
+    <QtMoc Include="ui\AddFriendItem.h" />
     <ClInclude Include="ui\DragWidgetFilter.h" />
     <QtMoc Include="ui\SearchFriend.h" />
+    <QtMoc Include="ui\NotifyItem.h" />
+    <QtMoc Include="ui\FriendItem.h" />
     <ClInclude Include="utils\EncodeUtil.h" />
     <ClInclude Include="utils\IULog.h" />
     <ClInclude Include="utils\ProtocolStream.h" />

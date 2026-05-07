@@ -14,6 +14,7 @@ public:
     ~Login();
 
     void setSubmitting(bool submitting);
+    void showErrorMessage(const QString& msg);
 
 signals:
     void registerRequested();

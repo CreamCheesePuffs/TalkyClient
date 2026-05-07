@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FriendItemClass</class>
+ <widget class="QWidget" name="FriendItemClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>280</width>
+    <height>68</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>FriendItem</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#FriendItemClass {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+}
+
+QWidget#FriendItemClass:hover {
+    background-color: #f5f7fb;
+}
+
+QLabel#avatarLabel {
+    background-color: #e9eef5;
+    border-radius: 20px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+QLabel#nicknameLabel {
+    background: transparent;
+    color: #222222;
+    font-size: 12pt;
+    font-weight: 500;
+    border: none;
+}
+
+QToolButton#toolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    min-width: 28px;
+    max-width: 28px;
+    min-height: 28px;
+    max-height: 28px;
+    font-size: 14px;
+    color: #666666;
+}
+
+QToolButton#toolButton:hover {
+    background-color: #f0f2f5;
+    color: #222222;
+}
+
+QToolButton#toolButton:pressed {
+    background-color: #e4e7ec;
+}
+
+QWidget#FriendItemClass {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+}
+
+QWidget#FriendItemClass:hover {
+    background-color: #f5f7fb;
+}
+
+QLabel#avatarLabel {
+    background-color: #e9eef5;
+    border-radius: 20px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+QLabel#nicknameLabel {
+    background: transparent;
+    color: #222222;
+    font-size: 12pt;
+    font-weight: 500;
+    border: none;
+}
+
+QToolButton#toolButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    min-width: 28px;
+    max-width: 28px;
+    min-height: 28px;
+    max-height: 28px;
+    font-size: 14px;
+    color: #888888;
+}
+
+QToolButton#toolButton:hover {
+    background-color: #fff1f1;
+    color: #d93025;
+}
+
+QToolButton#toolButton:pressed {
+    background-color: #ffdede;
+    color: #b42318;
+}</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>8</number>
+   </property>
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>8</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>8</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="avatarLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>40</horstretch>
+       <verstretch>40</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>40</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>40</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../TalkyClient.qrc">:/imgs/member.svg</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="nicknamelabel">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft YaHei UI</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QToolButton" name="toolButton">
+     <property name="minimumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../TalkyClient.qrc">
+       <normaloff>:/imgs/delete.svg</normaloff>:/imgs/delete.svg</iconset>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../TalkyClient.qrc"/>
+ </resources>
+ <connections/>
+</ui>

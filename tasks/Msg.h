@@ -14,17 +14,26 @@ typedef struct MsgHeader {
 #pragma pack(pop)
 
 enum msg_type : int32_t {
-    msg_type_register = 1001,
-    msg_type_login = 1002,
-    msg_type_logout = 1003,
-    msg_type_search_friend = 1004,
+    msg_type_register       = 1001,
+    msg_type_login          = 1002,
+    msg_type_logout         = 1003,
+    msg_type_search_friend  = 1004,
     msg_type_operate_friend = 1005,
-    msg_type_chat_msg = 1006,
-    msg_type_heartbeat = 1007,
+    msg_type_chat_msg       = 1006,
+    msg_type_heartbeat      = 1007,
+    msg_type_get_friendlist = 1008,
+};
+
+enum OPERATE_FRIEND_TYPE : int32_t
+{
+    OPERATE_FRIEND_TYPE_ADD_REQUEST = 0,
+    OPERATE_FRIEND_TYPE_ADD_RESPONSE = 1,
+    OPERATE_FRIEND_TYPE_DELETE_REQUEST = 2,
+    OPERATE_FRIEND_TYPE_DELETE_RESPONSE = 3,
 };
 
 struct UserInfo {
-    int32_t userId{0};
+    int32_t     userId{0};
     std::string username;
     std::string nickname;
 };

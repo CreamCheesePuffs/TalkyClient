@@ -185,6 +185,14 @@ QWidget#ChatItemClass[selected=&quot;true&quot;] {
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+             <pointsize>-1</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string>Alex</string>
            </property>
@@ -216,6 +224,12 @@ QWidget#ChatItemClass[selected=&quot;true&quot;] {
              <width>56</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+             <pointsize>-1</pointsize>
+            </font>
            </property>
            <property name="text">
             <string>1-31</string>
@@ -259,6 +273,12 @@ QWidget#ChatItemClass[selected=&quot;true&quot;] {
              <width>100</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+             <pointsize>-1</pointsize>
+            </font>
            </property>
            <property name="text">
             <string>Hi</string>

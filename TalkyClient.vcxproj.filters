@@ -142,6 +142,15 @@
     <ClCompile Include="ui\SearchFriend.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="ui\AddFriendItem.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\NotifyItem.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\FriendItem.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ui\ChatItem.h">
@@ -165,6 +174,15 @@
     <QtMoc Include="ui\SearchFriend.h">
       <Filter>ui</Filter>
     </QtMoc>
+    <QtMoc Include="ui\AddFriendItem.h">
+      <Filter>ui</Filter>
+    </QtMoc>
+    <QtMoc Include="ui\NotifyItem.h">
+      <Filter>ui</Filter>
+    </QtMoc>
+    <QtMoc Include="ui\FriendItem.h">
+      <Filter>ui</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="resource\ChatItem.ui">
@@ -180,6 +198,15 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="resource\SearchFriend.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="resource\AddFriendItem.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="resource\NotifyItem.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="resource\FriendItem.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

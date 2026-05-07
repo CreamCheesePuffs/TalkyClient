@@ -10,6 +10,8 @@
 
 int main(int argc, char *argv[])
 {
+    QApplication app(argc, argv);
+
     QString appPath = QCoreApplication::applicationDirPath() + "/";
     QDir().mkpath(appPath + "Logs");
 
@@ -18,10 +20,17 @@ int main(int argc, char *argv[])
         .arg(QDateTime::currentDateTime().toString("yyyyMMddHHmmss"))
         .arg(QCoreApplication::applicationPid());
     std::wstring ws = logFilePath.toStdWString();
-    qDebug() << logFilePath;
-    CIULog::Init(true, false, ws.c_str());
 
-    QApplication app(argc, argv);
+    bool logInited = CIULog::Init(true, false, ws.c_str());
+    if (!logInited)
+    {
+        qWarning() << "failed to init log file:" << logFilePath;
+    }
+    else
+    {
+        LOG_INFO("logger initialized");
+    }
+    
     app.setWindowIcon(QIcon(":/imgs/app.ico"));
 
     
