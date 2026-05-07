@@ -2,6 +2,17 @@
 
 Windows 桌面聊天客户端，基于 **Qt Widgets** 与自定义 TCP 协议，连接配套服务端后可完成注册、登录、好友管理与即时消息。
 
+## 界面预览
+
+<p align="center">
+  <img src="docs/images/login.png" alt="Login" width="32%">
+  <img src="docs/images/register.png" alt="Register" width="32%">
+</p>
+
+<p align="center">
+  <img src="docs/images/main-window.png" alt="Main Window" width="85%">
+</p>
+
 ## 功能概览
 
 - 用户注册与登录
